@@ -2,10 +2,7 @@ package com.tan.mapper;
 
 import com.tan.dto.DtoUpdateCategory;
 import com.tan.entity.EntityCategory;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,4 +21,7 @@ public interface MapperCategory {
 
     @Update("update category set category_name=#{categoryName},category_alias=#{categoryAlias},update_time=now() where id=#{id}")
     void update(DtoUpdateCategory category);
+
+    @Delete("delete from category where id=#{id}")
+    void deleteById(Integer id);
 }

@@ -83,4 +83,13 @@ public class ServiceCategoryImpl implements ServiceCategory {
     public void update(DtoUpdateCategory category) {
         mapperCategory.update(category);
     }
+
+    /**
+     * 删除分类
+     * @param id
+     */
+    @Override
+    public void deleteById(Integer id) {
+        mapperCategory.deleteById(id);
+    }
 }

@@ -57,4 +57,15 @@ public class ControllerCategory {
         return EntityResult.success();
     }
 
+    /**
+     * 删除文章分类
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    public EntityResult delete(@RequestParam Integer id){
+        serviceCategory.deleteById(id);
+        return EntityResult.success();
+    }
+
 }

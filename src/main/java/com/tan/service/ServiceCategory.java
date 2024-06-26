@@ -32,4 +32,10 @@ public interface ServiceCategory {
      * @param category
      */
     void update(DtoUpdateCategory category);
+
+    /**
+     * 删除分类
+     * @param id
+     */
+    void deleteById(Integer id);
 }
