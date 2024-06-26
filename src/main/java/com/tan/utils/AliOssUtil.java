@@ -9,9 +9,9 @@ import java.io.InputStream;
 
 public class AliOssUtil {
     private static final String ENDPOINT = "https://oss-cn-beijing.aliyuncs.com";
-    private static final String ACCESS_KEY_ID = "LTAI5tQ8e13igWZUMTjMEEQV";
-    private static final String SECRET_ACCESS_KEY = "MffMJoM24sc59SEBEJQDb0cfBVOAC9";
-    private static final String BUCKET_NAME = "big-event-gwd";
+    private static final String ACCESS_KEY_ID = "LTAI5tHpaw3umSW8encwK6yB";
+    private static final String SECRET_ACCESS_KEY = "lc8a5kqpzFu1cXA69IZW7FEyN0AyhY";
+    private static final String BUCKET_NAME = "big-eveal";
 
     //上传文件,返回文件的公网访问地址
     public static String uploadFile(String objectName, InputStream inputStream){
