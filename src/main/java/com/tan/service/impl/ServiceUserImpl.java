@@ -6,7 +6,7 @@ import com.tan.mapper.MapperUser;
 import com.tan.service.ServiceUser;
 import com.tan.utils.JwtUtil;
 import com.tan.utils.Md5Util;
-import org.apache.ibatis.annotations.Mapper;
+import com.tan.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +68,22 @@ public class ServiceUserImpl implements ServiceUser {
                 return EntityResult.error("密码错误");
             }
         }
+    }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @Override
+    public EntityResult getUserInfo() {
+
+        Map<String, Object> map = ThreadLocalUtil.get();
+
+        String username = (String) map.put("username", map.get("username"));
+
+        //查找用户
+        EntityUser user = mapperUser.getUserByName(username);
+
+        return EntityResult.success(user);
     }
 }

@@ -4,6 +4,7 @@ import com.tan.entity.EntityUser;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Mapper
 public interface MapperUser {
@@ -12,4 +13,5 @@ public interface MapperUser {
 
     @Insert("insert into user (username,password,create_time,update_time) value (#{username},#{md5Password},now(),now())")
     void register(String username, String md5Password);
+
 }

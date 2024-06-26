@@ -2,7 +2,6 @@ package com.tan.service;
 
 
 import com.tan.entity.EntityResult;
-import com.tan.entity.EntityUser;
 
 public interface ServiceUser {
     /**
@@ -20,4 +19,11 @@ public interface ServiceUser {
      * @return
      */
     EntityResult login(String username, String password);
+
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    EntityResult getUserInfo();
 }

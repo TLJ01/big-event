@@ -7,9 +7,7 @@ import com.tan.service.ServiceUser;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +39,15 @@ public class ControllerUser {
     @PostMapping("/login")
     public EntityResult login(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
         return serviceUser.login(username,password);
+    }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @GetMapping("/userInfo")
+    public EntityResult getUserInfo(){
+        return serviceUser.getUserInfo();
     }
 
 }
