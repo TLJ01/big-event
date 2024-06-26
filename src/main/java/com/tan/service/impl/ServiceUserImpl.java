@@ -10,6 +10,7 @@ import com.tan.utils.ThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -123,6 +124,10 @@ public class ServiceUserImpl implements ServiceUser {
         String rawPassword = claims.get("rawPassword");
         String newPassword = claims.get("newPassword");
         String rePassword = claims.get("rePassword");
+
+        if (!StringUtils.hasLength(rawPassword)||!StringUtils.hasLength(newPassword)||!StringUtils.hasLength(rePassword)) {
+            return EntityResult.error("参数不合法");
+        }
 
         //获取原密码
         Map<String,Object> map = ThreadLocalUtil.get();
