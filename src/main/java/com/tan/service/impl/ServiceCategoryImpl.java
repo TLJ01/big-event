@@ -1,5 +1,6 @@
 package com.tan.service.impl;
 
+import com.tan.dto.DtoUpdateCategory;
 import com.tan.entity.EntityCategory;
 import com.tan.entity.EntityResult;
 import com.tan.mapper.MapperCategory;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -45,5 +47,40 @@ public class ServiceCategoryImpl implements ServiceCategory {
         mapperCategory.addCategory(category);
         return EntityResult.success();
 
+    }
+
+    /**
+     * 获取分类列表
+     * @return
+     */
+    @Override
+    public EntityResult<List<EntityCategory>> list() {
+
+        //注意,这里应该是获取当前用户的分类列表
+        Map<String,Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+
+        List<EntityCategory> list =  mapperCategory.list(userId);
+        return EntityResult.success(list);
+    }
+
+    /**
+     * 获取分类详情
+     * @param id
+     * @return
+     */
+    @Override
+    public EntityResult getDetail(Integer id) {
+        EntityCategory entityCategory = mapperCategory.getDetail(id);
+        return EntityResult.success(entityCategory);
+    }
+
+    /**
+     * 更新分类
+     * @param category
+     */
+    @Override
+    public void update(DtoUpdateCategory category) {
+        mapperCategory.update(category);
     }
 }

@@ -1,9 +1,13 @@
 package com.tan.mapper;
 
+import com.tan.dto.DtoUpdateCategory;
 import com.tan.entity.EntityCategory;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 @Mapper
 public interface MapperCategory {
@@ -12,4 +16,12 @@ public interface MapperCategory {
 
     @Insert("insert into category (category_name, category_alias, create_user, create_time, update_time) value (#{categoryName},#{categoryAlias},#{createUser},now(),now())")
     void addCategory(EntityCategory category);
+    @Select("select * from category where create_user=#{userId}")
+    List<EntityCategory> list(Integer userId);
+
+    @Select("select * from category where id=#{id}")
+    EntityCategory getDetail(Integer id);
+
+    @Update("update category set category_name=#{categoryName},category_alias=#{categoryAlias},update_time=now() where id=#{id}")
+    void update(DtoUpdateCategory category);
 }
