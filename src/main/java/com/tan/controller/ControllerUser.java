@@ -50,4 +50,15 @@ public class ControllerUser {
         return serviceUser.getUserInfo();
     }
 
+    /**
+     * 更新用户基本信息
+     * @param user
+     * @return
+     */
+    @PutMapping("/update")
+    public EntityResult update(@RequestBody @Validated EntityUser user){
+        serviceUser.update(user);
+        return EntityResult.success();
+    }
+
 }

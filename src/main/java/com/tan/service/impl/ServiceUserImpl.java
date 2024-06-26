@@ -10,6 +10,7 @@ import com.tan.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,5 +86,17 @@ public class ServiceUserImpl implements ServiceUser {
         EntityUser user = mapperUser.getUserByName(username);
 
         return EntityResult.success(user);
+    }
+
+    /**
+     * 更新用户基本信息
+     * @param user
+     */
+    @Override
+    public void update(EntityUser user) {
+        //设置更新时间
+        user.setUpdateTime(LocalDateTime.now());
+
+        mapperUser.update(user);
     }
 }

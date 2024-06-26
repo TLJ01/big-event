@@ -2,6 +2,7 @@ package com.tan.service;
 
 
 import com.tan.entity.EntityResult;
+import com.tan.entity.EntityUser;
 
 public interface ServiceUser {
     /**
@@ -26,4 +27,10 @@ public interface ServiceUser {
      * @return
      */
     EntityResult getUserInfo();
+
+    /**
+     * 更新用户基本信息
+     * @param user
+     */
+    void update(EntityUser user);
 }
