@@ -7,13 +7,14 @@ import com.tan.service.ServiceUser;
 import com.tan.utils.JwtUtil;
 import com.tan.utils.Md5Util;
 import com.tan.utils.ThreadLocalUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
+@Slf4j
 @Service
 public class ServiceUserImpl implements ServiceUser {
 
@@ -84,7 +85,7 @@ public class ServiceUserImpl implements ServiceUser {
 
         //查找用户
         EntityUser user = mapperUser.getUserByName(username);
-
+        log.info("用户信息:{}",user);
         return EntityResult.success(user);
     }
 
@@ -98,5 +99,52 @@ public class ServiceUserImpl implements ServiceUser {
         user.setUpdateTime(LocalDateTime.now());
 
         mapperUser.update(user);
+    }
+
+    /**
+     * 更新用户头像
+     * @param avatarUrl
+     */
+    @Override
+    public void updateAvatar(String avatarUrl) {
+        Map<String,Object> map = ThreadLocalUtil.get();
+        Integer id = (Integer) map.get("id");
+        mapperUser.updateAvatar(avatarUrl,id);
+    }
+
+    /**
+     * 更新密码
+     * @param claims
+     * @return
+     */
+    @Override
+    public EntityResult updatePwd(Map<String, String> claims) {
+        //获取数据
+        String rawPassword = claims.get("rawPassword");
+        String newPassword = claims.get("newPassword");
+        String rePassword = claims.get("rePassword");
+
+        //获取原密码
+        Map<String,Object> map = ThreadLocalUtil.get();
+        String username = (String) map.get("username");
+        EntityUser loginUser = mapperUser.getUserByName(username);
+
+        //验证原密码
+        if (!loginUser.getPassword().equals(Md5Util.getMD5String(rawPassword))) {
+            return EntityResult.error("原密码错误");
+        }
+
+        //两次密码比对
+        if (!newPassword.equals(rePassword)) {
+            return EntityResult.error("两次密码不一致");
+        }
+
+        //注册
+        Integer userId = (Integer) map.get("id");
+        String md5String = Md5Util.getMD5String(newPassword);
+        mapperUser.updatePwd(md5String,userId);
+
+        return EntityResult.success();
+
     }
 }

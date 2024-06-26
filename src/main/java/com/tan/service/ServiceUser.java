@@ -4,6 +4,8 @@ package com.tan.service;
 import com.tan.entity.EntityResult;
 import com.tan.entity.EntityUser;
 
+import java.util.Map;
+
 public interface ServiceUser {
     /**
      * 注册
@@ -33,4 +35,17 @@ public interface ServiceUser {
      * @param user
      */
     void update(EntityUser user);
+
+    /**
+     * 更新用户头像
+     * @param avatarUrl
+     */
+    void updateAvatar(String avatarUrl);
+
+    /**
+     * 更新密码
+     * @param claims
+     * @return
+     */
+    EntityResult updatePwd(Map<String, String> claims);
 }

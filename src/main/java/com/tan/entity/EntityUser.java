@@ -20,6 +20,7 @@ public class EntityUser {
 
     private String username;//用户名
     //查询时不用查password
+    //该字段的值不会包含在生成的 JSON 中，也不会从 JSON 中读取该字段的值。-->返回Result就是一个生成Json的过程
     @JsonIgnore
     private String password;//密码
 
