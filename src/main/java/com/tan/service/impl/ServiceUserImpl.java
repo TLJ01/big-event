@@ -9,6 +9,7 @@ import com.tan.utils.Md5Util;
 import com.tan.utils.ThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +23,8 @@ public class ServiceUserImpl implements ServiceUser {
     @Autowired
     private MapperUser mapperUser;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 注册
@@ -65,6 +68,9 @@ public class ServiceUserImpl implements ServiceUser {
                 claims.put("id", user.getId());
                 String token = JwtUtil.genToken(claims);
 
+
+                //存入redis
+                stringRedisTemplate.opsForValue().set(username+":token",token);
                 //返回token
                 return EntityResult.success(token);
             }else{
@@ -149,6 +155,9 @@ public class ServiceUserImpl implements ServiceUser {
         String md5String = Md5Util.getMD5String(newPassword);
         mapperUser.updatePwd(md5String,userId);
 
+        //删除redis的token
+        Boolean delete = stringRedisTemplate.opsForValue().getOperations().delete(username + ":token");
+        log.info("rs:{}",delete);
         return EntityResult.success();
 
     }
