@@ -8,8 +8,8 @@ import com.aliyun.oss.OSSException;
 import java.io.InputStream;
 
 public class AliOssUtil {
-    private static final String ENDPOINT = "https://oss-cn-beijing.aliyuncs.com";
-    private static final String BUCKET_NAME = "big-eveal";
+    private static final String ENDPOINT = "xxx";
+    private static final String BUCKET_NAME = "xxx";
 
     //上传文件,返回文件的公网访问地址
     public static String uploadFile(String objectName, InputStream inputStream){
